@@ -1,0 +1,2558 @@
+
+SQL> connect system
+Enter password:
+Connected.
+SQL> craete table student(RollNo int,Name varchar(20));
+SP2-0734: unknown command beginning "craete tab..." - rest of line ignored.
+SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+create table student(RollNo int,Name varchar(20),Course varchar(30),Year int)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+
+Table created.
+
+SQL> insert into student values(1,'Livya','MCA',2023);
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> insert into student values(&RollNo,'&Name','&Course',&year);
+Enter value for rollno: 2
+Enter value for name: Naaz
+Enter value for course: MBA
+Enter value for year: 2023
+old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+new   1: insert into student values(2,'Naaz','MBA',2023)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 3
+Enter value for name: Megha
+Enter value for course: BCA
+Enter value for year: 2020
+old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+new   1: insert into student values(3,'Megha','BCA',2020)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 4
+Enter value for name: Riya
+Enter value for course: BBA
+Enter value for year: 2018
+old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+new   1: insert into student values(4,'Riya','BBA',2018)
+
+1 row created.
+
+SQL> select * from student;
+
+    ROLLNO NAME                 COURSE                               YEAR
+---------- -------------------- ------------------------------ ----------
+         1 Livya                MCA                                  2023
+         1 Livya                MCA                                  2023
+         2 Naaz                 MBA                                  2023
+         3 Megha                BCA                                  2020
+         4 Riya                 BBA                                  2018
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+
+Table created.
+
+SQL> dsc student;
+SP2-0734: unknown command beginning "dsc studen..." - rest of line ignored.
+SQL> describe student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               NUMBER(38)
+
+SQL> alter table student add mark int;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               NUMBER(38)
+ MARK                                               NUMBER(38)
+
+SQL> alter table student drop column mark;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               NUMBER(38)
+
+SQL> alter table student rename Name to Student_Name;
+alter table student rename Name to Student_Name
+                           *
+ERROR at line 1:
+ORA-14155: missing PARTITION or SUBPARTITION keyword
+
+
+SQL>  alter table student rename column Name to Student_Name;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ STUDENT_NAME                                       VARCHAR2(20)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               NUMBER(38)
+
+SQL> alter table student modify Year varchar(20);
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ STUDENT_NAME                                       VARCHAR2(20)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               VARCHAR2(20)
+
+SQL> alter table student add primary key(RollNo);
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                    NOT NULL NUMBER(38)
+ STUDENT_NAME                                       VARCHAR2(20)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               VARCHAR2(20)
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> truncate table student;
+truncate table student
+               *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> create table employee(emp_id int,name varchar(20),dept varchar(20),salary number(7,3),city varchar(20));
+
+Table created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ DEPT                                               VARCHAR2(20)
+ SALARY                                             NUMBER(7,3)
+ CITY                                               VARCHAR2(20)
+
+SQL> insert into student values(&emp_id,'&name','&dept',&salary,'&city');
+Enter value for emp_id: 1
+Enter value for name: rohith
+Enter value for dept: sales
+Enter value for salary: 32075.250
+Enter value for city: perumbavoor
+old   1: insert into student values(&emp_id,'&name','&dept',&salary,'&city')
+new   1: insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+Enter value for emp_id: 1
+Enter value for name: rohith
+Enter value for dept: sales
+Enter value for salary: 32075.250
+Enter value for city: kottayam
+old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+                                               *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+Enter value for emp_id: 1
+Enter value for name: Livya
+Enter value for dept: sales
+Enter value for salary: 8000.750
+Enter value for city: kollam
+old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(1,'Livya','sales',8000.750,'kollam')
+
+1 row created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ DEPT                                               VARCHAR2(20)
+ SALARY                                             NUMBER(7,3)
+ CITY                                               VARCHAR2(20)
+
+SQL> \
+SP2-0042: unknown command "\" - rest of line ignored.
+SQL> /
+Enter value for emp_id: 2
+Enter value for name: kamal
+Enter value for dept: marketing
+Enter value for salary: 7777.870
+Enter value for city: pala
+old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(2,'kamal','marketing',7777.870,'pala')
+
+1 row created.
+
+SQL> select * from employee;
+
+    EMP_ID NAME                 DEPT                     SALARY
+---------- -------------------- -------------------- ----------
+CITY
+--------------------
+         1 Livya                sales                   8000.75
+kollam
+
+         2 kamal                marketing               7777.87
+pala
+
+
+SQL> select * from employee where dept=sales;
+select * from employee where dept=sales
+                                  *
+ERROR at line 1:
+ORA-00904: "SALES": invalid identifier
+
+
+SQL>  select * from employee where dept='sales';
+
+    EMP_ID NAME                 DEPT                     SALARY
+---------- -------------------- -------------------- ----------
+CITY
+--------------------
+         1 Livya                sales                   8000.75
+kollam
+
+
+SQL> select * from employee where emp_id=1;
+
+    EMP_ID NAME                 DEPT                     SALARY
+---------- -------------------- -------------------- ----------
+CITY
+--------------------
+         1 Livya                sales                   8000.75
+kollam
+
+
+SQL> select * from employee where salary between 8000 and 8500;
+
+    EMP_ID NAME                 DEPT                     SALARY
+---------- -------------------- -------------------- ----------
+CITY
+--------------------
+         1 Livya                sales                   8000.75
+kollam
+
+
+SQL> select * from employee order by name;
+
+    EMP_ID NAME                 DEPT                     SALARY
+---------- -------------------- -------------------- ----------
+CITY
+--------------------
+         1 Livya                sales                   8000.75
+kollam
+
+         2 kamal                marketing               7777.87
+pala
+
+
+SQL> select * from employee order by name asc;
+
+    EMP_ID NAME                 DEPT                     SALARY
+---------- -------------------- -------------------- ----------
+CITY
+--------------------
+         1 Livya                sales                   8000.75
+kollam
+
+         2 kamal                marketing               7777.87
+pala
+
+
+SQL> SQL> connect system
+SP2-0734: unknown command beginning "SQL> conne..." - rest of line ignored.
+SQL> Enter password:
+SP2-0734: unknown command beginning "Enter pass..." - rest of line ignored.
+SQL> Connected.
+SP2-0042: unknown command "Connected." - rest of line ignored.
+SQL> SQL> craete table student(RollNo int,Name varchar(20));
+SP2-0734: unknown command beginning "SQL> craet..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> SP2-0734: unknown command beginning "craete tab..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int)
+  2               *
+  3  ERROR at line 1:
+  4  ORA-00955: name is already used by an existing object
+  5
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> insert into student values(1,'Livya','MCA',2023);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> insert into student values(&RollNo,'&Name','&Course',&year);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for rollno: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for name: Naaz
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: MBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2023
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(2,'Naaz','MBA',2023)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 3
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Megha
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for course: BCA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2020
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(3,'Megha','BCA',2020)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 4
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Riya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: BBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for year: 2018
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(4,'Riya','BBA',2018)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from student;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     ROLLNO NAME                 COURSE                               YEAR
+SP2-0734: unknown command beginning "ROLLNO NAM..." - rest of line ignored.
+SQL> ---------- -------------------- ------------------------------ ----------
+SQL>          1 Livya                MCA                                  2023
+SQL>          1 Livya                MCA                                  2023
+SQL>          2 Naaz                 MBA                                  2023
+SQL>          3 Megha                BCA                                  2020
+SQL>          4 Riya                 BBA                                  2018
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> dsc student;
+SP2-0734: unknown command beginning "SQL> dsc s..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "dsc studen..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> describe student;
+SP2-0734: unknown command beginning "SQL> descr..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add mark int;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  MARK                                               NUMBER(38)
+SP2-0734: unknown command beginning "MARK      ..." - rest of line ignored.
+SQL>
+SQL> SQL> alter table student drop column mark;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student rename Name to Student_Name;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL> alter table student rename Name to Student_Name
+  2                             *
+  3  ERROR at line 1:
+  4  ORA-14155: missing PARTITION or SUBPARTITION keyword
+  5
+SQL>
+SQL> SQL>  alter table student rename column Name to Student_Name;
+SP2-0734: unknown command beginning "SQL>  alte..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student modify Year varchar(20);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add primary key(RollNo);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                    NOT NULL NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> truncate table student;
+SP2-0734: unknown command beginning "SQL> trunc..." - rest of line ignored.
+SQL> truncate table student
+  2                 *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> create table employee(emp_id int,name varchar(20),dept varchar(20),salary number(7,3),city varchar(20));
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> insert into student values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: perumbavoor
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL> insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+  2              *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kottayam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+  2                                                 *
+  3  ERROR at line 1:
+  4  ORA-01438: value larger than specified precision allowed for this column
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Livya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 8000.750
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kollam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'Livya','sales',8000.750,'kollam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> \
+SP2-0042: unknown command "SQL> \" - rest of line ignored.
+SQL> SP2-0042: unknown command "\" - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0042: ..." - rest of line ignored.
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for emp_id: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: kamal
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: marketing
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 7777.870
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for city: pala
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(2,'kamal','marketing',7777.870,'pala')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from employee;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where dept=sales;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL> select * from employee where dept=sales
+  2                                    *
+  3  ERROR at line 1:
+  4  ORA-00904: "SALES": invalid identifier
+  5
+SQL>
+SQL> SQL>  select * from employee where dept='sales';
+SP2-0734: unknown command beginning "SQL>  sele..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where emp_id=1;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where salary between 8000 and 8500;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name asc;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL> SQL> connect system
+SP2-0734: unknown command beginning "SQL> conne..." - rest of line ignored.
+SQL> Enter password:
+SP2-0734: unknown command beginning "Enter pass..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Connected.
+SP2-0042: unknown command "Connected." - rest of line ignored.
+SQL> SQL> craete table student(RollNo int,Name varchar(20));
+SP2-0734: unknown command beginning "SQL> craet..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "craete tab..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int)
+  2               *
+  3  ERROR at line 1:
+  4  ORA-00955: name is already used by an existing object
+  5
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> insert into student values(1,'Livya','MCA',2023);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> insert into student values(&RollNo,'&Name','&Course',&year);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for rollno: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for name: Naaz
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: MBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2023
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(2,'Naaz','MBA',2023)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 3
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Megha
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for course: BCA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2020
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(3,'Megha','BCA',2020)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 4
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Riya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: BBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for year: 2018
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(4,'Riya','BBA',2018)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from student;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     ROLLNO NAME                 COURSE                               YEAR
+SP2-0734: unknown command beginning "ROLLNO NAM..." - rest of line ignored.
+SQL> ---------- -------------------- ------------------------------ ----------
+SQL>          1 Livya                MCA                                  2023
+SQL>          1 Livya                MCA                                  2023
+SQL>          2 Naaz                 MBA                                  2023
+SQL>          3 Megha                BCA                                  2020
+SQL>          4 Riya                 BBA                                  2018
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> dsc student;
+SP2-0734: unknown command beginning "SQL> dsc s..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "dsc studen..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> describe student;
+SP2-0734: unknown command beginning "SQL> descr..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add mark int;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  MARK                                               NUMBER(38)
+SP2-0734: unknown command beginning "MARK      ..." - rest of line ignored.
+SQL>
+SQL> SQL> alter table student drop column mark;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student rename Name to Student_Name;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL> alter table student rename Name to Student_Name
+  2                             *
+  3  ERROR at line 1:
+  4  ORA-14155: missing PARTITION or SUBPARTITION keyword
+  5
+SQL>
+SQL> SQL>  alter table student rename column Name to Student_Name;
+SP2-0734: unknown command beginning "SQL>  alte..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student modify Year varchar(20);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add primary key(RollNo);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                    NOT NULL NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> truncate table student;
+SP2-0734: unknown command beginning "SQL> trunc..." - rest of line ignored.
+SQL> truncate table student
+  2                 *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> create table employee(emp_id int,name varchar(20),dept varchar(20),salary number(7,3),city varchar(20));
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> insert into student values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: perumbavoor
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL> insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+  2              *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kottayam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+  2                                                 *
+  3  ERROR at line 1:
+  4  ORA-01438: value larger than specified precision allowed for this column
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Livya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 8000.750
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kollam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'Livya','sales',8000.750,'kollam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> \
+SP2-0042: unknown command "SQL> \" - rest of line ignored.
+SQL> SP2-0042: unknown command "\" - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0042: ..." - rest of line ignored.
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for emp_id: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: kamal
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: marketing
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 7777.870
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for city: pala
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(2,'kamal','marketing',7777.870,'pala')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from employee;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where dept=sales;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL> select * from employee where dept=sales
+  2                                    *
+  3  ERROR at line 1:
+  4  ORA-00904: "SALES": invalid identifier
+  5
+SQL>
+SQL> SQL>  select * from employee where dept='sales';
+SP2-0734: unknown command beginning "SQL>  sele..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where emp_id=1;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where salary between 8000 and 8500;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name asc;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL> SQL> connect system
+SP2-0734: unknown command beginning "SQL> conne..." - rest of line ignored.
+SQL> Enter password:
+SP2-0734: unknown command beginning "Enter pass..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Connected.
+SP2-0042: unknown command "Connected." - rest of line ignored.
+SQL> SQL> craete table student(RollNo int,Name varchar(20));
+SP2-0734: unknown command beginning "SQL> craet..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "craete tab..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int)
+  2               *
+  3  ERROR at line 1:
+  4  ORA-00955: name is already used by an existing object
+  5
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> insert into student values(1,'Livya','MCA',2023);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> insert into student values(&RollNo,'&Name','&Course',&year);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for rollno: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for name: Naaz
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: MBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2023
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(2,'Naaz','MBA',2023)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 3
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Megha
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for course: BCA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2020
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(3,'Megha','BCA',2020)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 4
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Riya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: BBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for year: 2018
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(4,'Riya','BBA',2018)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from student;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     ROLLNO NAME                 COURSE                               YEAR
+SP2-0734: unknown command beginning "ROLLNO NAM..." - rest of line ignored.
+SQL> ---------- -------------------- ------------------------------ ----------
+SQL>          1 Livya                MCA                                  2023
+SQL>          1 Livya                MCA                                  2023
+SQL>          2 Naaz                 MBA                                  2023
+SQL>          3 Megha                BCA                                  2020
+SQL>          4 Riya                 BBA                                  2018
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> dsc student;
+SP2-0734: unknown command beginning "SQL> dsc s..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "dsc studen..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> describe student;
+SP2-0734: unknown command beginning "SQL> descr..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add mark int;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  MARK                                               NUMBER(38)
+SP2-0734: unknown command beginning "MARK      ..." - rest of line ignored.
+SQL>
+SQL> SQL> alter table student drop column mark;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student rename Name to Student_Name;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL> alter table student rename Name to Student_Name
+  2                             *
+  3  ERROR at line 1:
+  4  ORA-14155: missing PARTITION or SUBPARTITION keyword
+  5
+SQL>
+SQL> SQL>  alter table student rename column Name to Student_Name;
+SP2-0734: unknown command beginning "SQL>  alte..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student modify Year varchar(20);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add primary key(RollNo);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                    NOT NULL NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> truncate table student;
+SP2-0734: unknown command beginning "SQL> trunc..." - rest of line ignored.
+SQL> truncate table student
+  2                 *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> create table employee(emp_id int,name varchar(20),dept varchar(20),salary number(7,3),city varchar(20));
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> insert into student values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: perumbavoor
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL> insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+  2              *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kottayam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+  2                                                 *
+  3  ERROR at line 1:
+  4  ORA-01438: value larger than specified precision allowed for this column
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Livya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 8000.750
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kollam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'Livya','sales',8000.750,'kollam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> \
+SP2-0042: unknown command "SQL> \" - rest of line ignored.
+SQL> SP2-0042: unknown command "\" - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0042: ..." - rest of line ignored.
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for emp_id: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: kamal
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: marketing
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 7777.870
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for city: pala
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(2,'kamal','marketing',7777.870,'pala')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from employee;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where dept=sales;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL> select * from employee where dept=sales
+  2                                    *
+  3  ERROR at line 1:
+  4  ORA-00904: "SALES": invalid identifier
+  5
+SQL>
+SQL> SQL>  select * from employee where dept='sales';
+SP2-0734: unknown command beginning "SQL>  sele..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where emp_id=1;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where salary between 8000 and 8500;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name asc;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL> SQL> connect system
+SP2-0734: unknown command beginning "SQL> conne..." - rest of line ignored.
+SQL> Enter password:
+SP2-0734: unknown command beginning "Enter pass..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Connected.
+SP2-0042: unknown command "Connected." - rest of line ignored.
+SQL> SQL> craete table student(RollNo int,Name varchar(20));
+SP2-0734: unknown command beginning "SQL> craet..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "craete tab..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int)
+  2               *
+  3  ERROR at line 1:
+  4  ORA-00955: name is already used by an existing object
+  5
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> insert into student values(1,'Livya','MCA',2023);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> insert into student values(&RollNo,'&Name','&Course',&year);
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for rollno: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for name: Naaz
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: MBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2023
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(2,'Naaz','MBA',2023)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 3
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Megha
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for course: BCA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for year: 2020
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(3,'Megha','BCA',2020)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SQL> Enter value for rollno: 4
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Riya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for course: BBA
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for year: 2018
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&RollNo,'&Name','&Course',&year)
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into student values(4,'Riya','BBA',2018)
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from student;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     ROLLNO NAME                 COURSE                               YEAR
+SP2-0734: unknown command beginning "ROLLNO NAM..." - rest of line ignored.
+SQL> ---------- -------------------- ------------------------------ ----------
+SQL>          1 Livya                MCA                                  2023
+SQL>          1 Livya                MCA                                  2023
+SQL>          2 Naaz                 MBA                                  2023
+SQL>          3 Megha                BCA                                  2020
+SQL>          4 Riya                 BBA                                  2018
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> create table student(RollNo int,Name varchar(20),Course varchar(30),Year int);
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> dsc student;
+SP2-0734: unknown command beginning "SQL> dsc s..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "dsc studen..." - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0734: ..." - rest of line ignored.
+SQL> SQL> describe student;
+SP2-0734: unknown command beginning "SQL> descr..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add mark int;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  MARK                                               NUMBER(38)
+SP2-0734: unknown command beginning "MARK      ..." - rest of line ignored.
+SQL>
+SQL> SQL> alter table student drop column mark;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student rename Name to Student_Name;
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL> alter table student rename Name to Student_Name
+  2                             *
+  3  ERROR at line 1:
+  4  ORA-14155: missing PARTITION or SUBPARTITION keyword
+  5
+SQL>
+SQL> SQL>  alter table student rename column Name to Student_Name;
+SP2-0734: unknown command beginning "SQL>  alte..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               NUMBER(38)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student modify Year varchar(20);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                             NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> alter table student add primary key(RollNo);
+SP2-0734: unknown command beginning "SQL> alter..." - rest of line ignored.
+SQL>
+SQL> Table altered.
+SP2-0734: unknown command beginning "Table alte..." - rest of line ignored.
+SQL>
+SQL> SQL> desc student;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  ROLLNO                                    NOT NULL NUMBER(38)
+SP2-0734: unknown command beginning "ROLLNO    ..." - rest of line ignored.
+SQL>  STUDENT_NAME                                       VARCHAR2(20)
+SP2-0734: unknown command beginning "STUDENT_NA..." - rest of line ignored.
+SQL>  COURSE                                             VARCHAR2(30)
+SP2-0734: unknown command beginning "COURSE    ..." - rest of line ignored.
+SQL>  YEAR                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "YEAR      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> SQL> drop table student;
+SP2-0734: unknown command beginning "SQL> drop ..." - rest of line ignored.
+SQL>
+SQL> Table dropped.
+SP2-0734: unknown command beginning "Table drop..." - rest of line ignored.
+SQL>
+SQL> SQL> truncate table student;
+SP2-0734: unknown command beginning "SQL> trunc..." - rest of line ignored.
+SQL> truncate table student
+  2                 *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> create table employee(emp_id int,name varchar(20),dept varchar(20),salary number(7,3),city varchar(20));
+SP2-0734: unknown command beginning "SQL> creat..." - rest of line ignored.
+SQL>
+SQL> Table created.
+SP2-0734: unknown command beginning "Table crea..." - rest of line ignored.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> insert into student values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: perumbavoor
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into student values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> new   1: insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL> insert into student values(1,'rohith','sales',32075.250,'perumbavoor')
+  2              *
+  3  ERROR at line 1:
+  4  ORA-00942: table or view does not exist
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: rohith
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 32075.250
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kottayam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> insert into employee values(1,'rohith','sales',32075.250,'kottayam')
+  2                                                 *
+  3  ERROR at line 1:
+  4  ORA-01438: value larger than specified precision allowed for this column
+  5
+SQL>
+SQL> SQL> insert into employee values(&emp_id,'&name','&dept',&salary,'&city');
+SP2-0734: unknown command beginning "SQL> inser..." - rest of line ignored.
+SQL> Enter value for emp_id: 1
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: Livya
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: sales
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for salary: 8000.750
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for city: kollam
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(1,'Livya','sales',8000.750,'kollam')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> desc employee;
+SP2-0734: unknown command beginning "SQL> desc ..." - rest of line ignored.
+SQL>  Name                                      Null?    Type
+SP2-0734: unknown command beginning "Name      ..." - rest of line ignored.
+SQL>  ----------------------------------------- -------- ----------------------------
+SQL>  EMP_ID                                             NUMBER(38)
+SP2-0734: unknown command beginning "EMP_ID    ..." - rest of line ignored.
+SQL>  NAME                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "NAME      ..." - rest of line ignored.
+SQL>  DEPT                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "DEPT      ..." - rest of line ignored.
+SQL>  SALARY                                             NUMBER(7,3)
+SP2-0734: unknown command beginning "SALARY    ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>  CITY                                               VARCHAR2(20)
+SP2-0734: unknown command beginning "CITY      ..." - rest of line ignored.
+SQL>
+SQL> SQL> \
+SP2-0042: unknown command "SQL> \" - rest of line ignored.
+SQL> SP2-0042: unknown command "\" - rest of line ignored.
+SP2-0734: unknown command beginning "SP2-0042: ..." - rest of line ignored.
+SQL> SQL> /
+SP2-0042: unknown command "SQL> /" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for emp_id: 2
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for name: kamal
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for dept: marketing
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> Enter value for salary: 7777.870
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Enter value for city: pala
+SP2-0734: unknown command beginning "Enter valu..." - rest of line ignored.
+SQL> old   1: insert into employee values(&emp_id,'&name','&dept',&salary,'&city')
+SP2-0734: unknown command beginning "old         1: i..." - rest of line ignored.
+SQL> new   1: insert into employee values(2,'kamal','marketing',7777.870,'pala')
+SP2-0734: unknown command beginning "new         1: i..." - rest of line ignored.
+SQL>
+SQL> 1 row created.
+SQL>
+SQL> SQL> select * from employee;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where dept=sales;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL> select * from employee where dept=sales
+  2                                    *
+  3  ERROR at line 1:
+  4  ORA-00904: "SALES": invalid identifier
+  5
+SQL>
+SQL> SQL>  select * from employee where dept='sales';
+SP2-0734: unknown command beginning "SQL>  sele..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where emp_id=1;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee where salary between 8000 and 8500;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+SQL> SQL> select * from employee order by name asc;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>
+SQL>     EMP_ID NAME                 DEPT                     SALARY
+SP2-0734: unknown command beginning "EMP_ID NAM..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> ---------- -------------------- -------------------- ----------
+SQL> CITY
+SP2-0042: unknown command "CITY" - rest of line ignored.
+SQL> --------------------
+SQL>          1 Livya                sales                   8000.75
+SQL> kollam
+SP2-0042: unknown command "kollam" - rest of line ignored.
+SQL>
+SQL>          2 kamal                marketing               7777.87
+SQL> pala
+SP2-0042: unknown command "pala" - rest of line ignored.
+SQL>
+SQL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,266 @@
+
+SQL> connect system
+Enter password:
+Connected.
+SQL> create table customer(id int,name varchar(20),address varchar(40),city varchar(20),country varchar(20),age int,salary int);
+
+Table created.
+
+SQL> insert into customer values(&id,'&name','&address','&city','&country',&age,&salary);
+Enter value for id: 1
+Enter value for name: livya
+Enter value for address: thuruthummaly(H)
+Enter value for city: perumbavoor
+Enter value for country: india
+Enter value for age: 21
+Enter value for salary: 24000
+old   1: insert into customer values(&id,'&name','&address','&city','&country',&age,&salary)
+new   1: insert into customer values(1,'livya','thuruthummaly(H)','perumbavoor','india',21,24000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: milan
+Enter value for address: nirappel(H)
+Enter value for city: kothamangalam
+Enter value for country: india
+Enter value for age: 22
+Enter value for salary: 32500
+old   1: insert into customer values(&id,'&name','&address','&city','&country',&age,&salary)
+new   1: insert into customer values(2,'milan','nirappel(H)','kothamangalam','india',22,32500)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: ishel
+Enter value for address: neelangal(H)
+Enter value for city: vengola
+Enter value for country: india
+Enter value for age: 19
+Enter value for salary: 14000
+old   1: insert into customer values(&id,'&name','&address','&city','&country',&age,&salary)
+new   1: insert into customer values(3,'ishel','neelangal(H)','vengola','india',19,14000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: nazik
+Enter value for address: sreenilayam(H)
+Enter value for city: kollam
+Enter value for country: india
+Enter value for age: 25
+Enter value for salary: 37000
+old   1: insert into customer values(&id,'&name','&address','&city','&country',&age,&salary)
+new   1: insert into customer values(4,'nazik','sreenilayam(H)','kollam','india',25,37000)
+
+1 row created.
+SQL> /
+Enter value for id: 5
+Enter value for name: peeli
+Enter value for address: nivas bhavan
+Enter value for city: kochi
+Enter value for country: india
+Enter value for age: 20
+Enter value for salary: 15000
+old   1: insert into customer values(&id,'&name','&address','&city','&country',&age,&salary)
+new   1: insert into customer values(5,'peeli','nivas bhavan','kochi','india',20,15000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 6
+Enter value for name: priya
+Enter value for address: priyabhavan
+Enter value for city: kottappady
+Enter value for country: india
+Enter value for age: 48
+Enter value for salary: 45000
+old   1: insert into customer values(&id,'&name','&address','&city','&country',&age,&salary)
+new   1: insert into customer values(6,'priya','priyabhavan','kottappady','india',48,45000)
+
+1 row created.
+
+SQL> select * from customer where name like 'p%';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         5 peeli                nivas bhavan
+kochi                india                        20      15000
+
+         6 priya                priyabhavan
+kottappady           india                        48      45000
+
+
+SQL> select * from customer where name like'%ya%';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         1 livya                thuruthummaly(H)
+perumbavoor          india                        21      24000
+
+         6 priya                priyabhavan
+kottappady           india                        48      45000
+
+
+SQL> select * from customer where name like '%i';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         5 peeli                nivas bhavan
+kochi                india                        20      15000
+
+
+SQL> select * from customer where age like '2%';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         1 livya                thuruthummaly(H)
+perumbavoor          india                        21      24000
+
+         2 milan                nirappel(H)
+kothamangalam        india                        22      32500
+
+         4 nazik                sreenilayam(H)
+kollam               india                        25      37000
+
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         5 peeli                nivas bhavan
+kochi                india                        20      15000
+
+
+SQL> select * from customer where salary like '%50%';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         2 milan                nirappel(H)
+kothamangalam        india                        22      32500
+
+         5 peeli                nivas bhavan
+kochi                india                        20      15000
+
+         6 priya                priyabhavan
+kottappady           india                        48      45000
+
+
+SQL> select * from customer where city like 'Na_ik';
+
+no rows selected
+
+SQL> select * from customer where salary like '3__00';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         2 milan                nirappel(H)
+kothamangalam        india                        22      32500
+
+         4 nazik                sreenilayam(H)
+kollam               india                        25      37000
+
+
+SQL> select * from customer where name like '____a%';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         1 livya                thuruthummaly(H)
+perumbavoor          india                        21      24000
+
+         6 priya                priyabhavan
+kottappady           india                        48      45000
+
+
+SQL> select * from customer where name not like 'priya';
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         1 livya                thuruthummaly(H)
+perumbavoor          india                        21      24000
+
+         2 milan                nirappel(H)
+kothamangalam        india                        22      32500
+
+         3 ishel                neelangal(H)
+vengola              india                        19      14000
+
+
+        ID NAME                 ADDRESS
+---------- -------------------- ----------------------------------------
+CITY                 COUNTRY                     AGE     SALARY
+-------------------- -------------------- ---------- ----------
+         4 nazik                sreenilayam(H)
+kollam               india                        25      37000
+
+         5 peeli                nivas bhavan
+kochi                india                        20      15000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,262 @@
+SQL> connect system
+Enter password:
+Connected.
+SQL> create table dept(deptid int primary key,deptname varchar(20),city varchar(20));
+
+Table created.
+
+SQL> create table emp(empid int primary key,empname varchar(20),deptid int,foreign key(deptid) references dept(deptid),salary int);
+
+Table created.
+
+SQL> insert into  dept values(&deptid,'&deptname','&city');
+Enter value for deptid: 1
+Enter value for deptname: MCA
+Enter value for city: kothamangalam
+old   1: insert into  dept values(&deptid,'&deptname','&city')
+new   1: insert into  dept values(1,'MCA','kothamangalam')
+
+1 row created.
+
+SQL> /
+Enter value for deptid: 2
+Enter value for deptname: BCA
+Enter value for city: puthuppady
+old   1: insert into  dept values(&deptid,'&deptname','&city')
+new   1: insert into  dept values(2,'BCA','puthuppady')
+
+1 row created.
+
+SQL> /
+Enter value for deptid: 3
+Enter value for deptname: MBA
+Enter value for city: kochi
+old   1: insert into  dept values(&deptid,'&deptname','&city')
+new   1: insert into  dept values(3,'MBA','kochi')
+
+1 row created.
+
+SQL> /
+Enter value for deptid: 4
+Enter value for deptname: BBA
+Enter value for city: kollam
+old   1: insert into  dept values(&deptid,'&deptname','&city')
+new   1: insert into  dept values(4,'BBA','kollam')
+
+1 row created.
+
+SQL> /
+Enter value for deptid: 5
+Enter value for deptname: BCom
+Enter value for city: pala
+old   1: insert into  dept values(&deptid,'&deptname','&city')
+new   1: insert into  dept values(5,'BCom','pala')
+
+1 row created.
+
+SQL> insert into emp values(&empid,'&empname',&deptid,&salary);
+Enter value for empid: 1
+Enter value for empname: livya
+Enter value for deptid: 1
+Enter value for salary: 30000
+old   1: insert into emp values(&empid,'&empname',&deptid,&salary)
+new   1: insert into emp values(1,'livya',1,30000)
+
+1 row created.
+
+SQL> /
+Enter value for empid: 3
+Enter value for empname: naaz
+Enter value for deptid: 2
+Enter value for salary: 3500
+old   1: insert into emp values(&empid,'&empname',&deptid,&salary)
+new   1: insert into emp values(3,'naaz',2,3500)
+
+1 row created.
+
+SQL> /
+Enter value for empid: 5
+Enter value for empname: keerthi
+Enter value for deptid: 3
+Enter value for salary: 1500
+old   1: insert into emp values(&empid,'&empname',&deptid,&salary)
+new   1: insert into emp values(5,'keerthi',3,1500)
+
+1 row created.
+
+SQL> /
+Enter value for empid: 4
+Enter value for empname: milan
+Enter value for deptid: 4
+Enter value for salary: 2800
+old   1: insert into emp values(&empid,'&empname',&deptid,&salary)
+new   1: insert into emp values(4,'milan',4,2800)
+
+1 row created.
+
+SQL> /
+Enter value for empid: 7
+Enter value for empname: paul
+Enter value for deptid: 5
+Enter value for salary: 32000
+old   1: insert into emp values(&empid,'&empname',&deptid,&salary)
+new   1: insert into emp values(7,'paul',5,32000)
+
+1 row created.
+
+SQL> select * from dept;
+
+    DEPTID DEPTNAME             CITY
+---------- -------------------- --------------------
+         1 MCA                  kothamangalam
+         2 BCA                  puthuppady
+         3 MBA                  kochi
+         4 BBA                  kollam
+         5 BCom                 pala
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                  DEPTID     SALARY
+---------- -------------------- ---------- ----------
+         1 livya                         1      30000
+         3 naaz                          2       3500
+         5 keerthi                       3       1500
+         4 milan                         4       2800
+         7 paul                          5      32000
+
+SQL> update emp set empname='megha' where empid=5;
+
+1 row updated.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                     NOT NULL NUMBER(38)
+ EMPNAME                                            VARCHAR2(20)
+ DEPTID                                             NUMBER(38)
+ SALARY                                             NUMBER(38)
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                  DEPTID     SALARY
+---------- -------------------- ---------- ----------
+         1 livya                         1      30000
+         3 naaz                          2       3500
+         5 megha                         3       1500
+         4 milan                         4       2800
+         7 paul                          5      32000
+
+SQL> delete from emp where empid=3;
+
+1 row deleted.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                  DEPTID     SALARY
+---------- -------------------- ---------- ----------
+         1 livya                         1      30000
+         5 megha                         3       1500
+         4 milan                         4       2800
+         7 paul                          5      32000
+
+SQL> select empname,deptname from emp,dept where emp.deptid=dept.deptid;
+
+EMPNAME              DEPTNAME
+-------------------- --------------------
+livya                MCA
+megha                MBA
+milan                BBA
+paul                 BCom
+
+SQL> select empname,deptname from emp,dept where city='kollam' and emp.deptid=dept.deptid;
+
+EMPNAME              DEPTNAME
+-------------------- --------------------
+milan                BBA
+
+SQL> delete from emp where empname='megha';
+
+1 row deleted.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                  DEPTID     SALARY
+---------- -------------------- ---------- ----------
+         1 livya                         1      30000
+         4 milan                         4       2800
+         7 paul                          5      32000
+
+SQL> update emp set salary=salary+500 where deptid=1;
+
+1 row updated.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                  DEPTID     SALARY
+---------- -------------------- ---------- ----------
+         1 livya                         1      30500
+         4 milan                         4       2800
+         7 paul                          5      32000
+
+SQL> select empname,deptname from emp,dept where salary>2000 and emp.deptid=dept.deptid;
+
+EMPNAME              DEPTNAME
+-------------------- --------------------
+livya                MCA
+milan                BBA
+paul                 BCom
+
+
+SQL> insert into emp values(&empid,'&empname',&deptid,&salary);
+Enter value for empid: 8
+Enter value for empname: appu
+Enter value for deptid: 7
+Enter value for salary: 25000
+old   1: insert into emp values(&empid,'&empname',&deptid,&salary)
+new   1: insert into emp values(8,'appu',7,25000)
+insert into emp values(8,'appu',7,25000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.SYS_C003997) violated - parent key not
+found
+
+
+SQL> commit
+  2
+SQL> commit;
+
+Commit complete.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
