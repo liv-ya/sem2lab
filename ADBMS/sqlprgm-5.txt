@@ -1,0 +1,159 @@
+SQL> create table products(p_id int primary key,p_name varchar(25),supplier_id int,category_id int,unit int,price int);
+
+Table created.
+
+SQL> insert into products values(&p_id,'&p_name',&supplier_id,&category_id,&unit,&price);
+Enter value for p_id: 1
+Enter value for p_name: chais
+Enter value for supplier_id: 1
+Enter value for category_id: 1
+Enter value for unit: 10
+Enter value for price: 18
+old   1: insert into products values(&p_id,'&p_name',&supplier_id,&category_id,&unit,&price)
+new   1: insert into products values(1,'chais',1,1,10,18)
+
+1 row created.
+
+SQL> /
+Enter value for p_id: 2
+Enter value for p_name: chang
+Enter value for supplier_id: 1
+Enter value for category_id: 1
+Enter value for unit: 24
+Enter value for price: 19
+old   1: insert into products values(&p_id,'&p_name',&supplier_id,&category_id,&unit,&price)
+new   1: insert into products values(2,'chang',1,1,24,19)
+
+1 row created.
+
+SQL> /
+Enter value for p_id: 3
+Enter value for p_name: aniseed syrup
+Enter value for supplier_id: 1
+Enter value for category_id: 2
+Enter value for unit: 12
+Enter value for price: 10
+old   1: insert into products values(&p_id,'&p_name',&supplier_id,&category_id,&unit,&price)
+new   1: insert into products values(3,'aniseed syrup',1,2,12,10)
+
+1 row created.
+
+SQL> /
+Enter value for p_id: 4
+Enter value for p_name: Cajun seasoning
+Enter value for supplier_id: 2
+Enter value for category_id: 2
+Enter value for unit: 48
+Enter value for price: 22
+old   1: insert into products values(&p_id,'&p_name',&supplier_id,&category_id,&unit,&price)
+new   1: insert into products values(4,'Cajun seasoning',2,2,48,22)
+
+1 row created.
+
+SQL> /
+Enter value for p_id: 5
+Enter value for p_name: Gumbo mix
+Enter value for supplier_id: 2
+Enter value for category_id: 2
+Enter value for unit: 36
+Enter value for price: 21
+old   1: insert into products values(&p_id,'&p_name',&supplier_id,&category_id,&unit,&price)
+new   1: insert into products values(5,'Gumbo mix',2,2,36,21)
+
+1 row created.
+
+SQL>  select max(price) from products where supplier_id=2;
+
+MAX(PRICE)
+----------
+        22
+
+SQL>  select min(price) from products where supplier_id=2;
+
+MIN(PRICE)
+----------
+        21
+
+SQL> select count(p_name) from products where category_id=1;
+
+COUNT(P_NAME)
+-------------
+            2
+
+SQL> select count(p_name) from products where price>20;
+
+COUNT(P_NAME)
+-------------
+            2
+
+SQL> select sum(price) from products where supplier_id=1;
+
+SUM(PRICE)
+----------
+        47
+
+SQL> select avg(price) from products;
+
+AVG(PRICE)
+----------
+        18
+
+SQL> select avg(price) from products where category_id=1;
+
+AVG(PRICE)
+----------
+      18.5
+
+SQL> select * from products where price > (select avg(price) from products);
+
+      P_ID P_NAME                    SUPPLIER_ID CATEGORY_ID       UNIT       PRICE
+---------- ------------------------- ----------- ----------- ----------       ----------
+  
+ 
+         2 chang                               1           1         24         19
+       
+
+         4 Cajun seasoning                     2           2         48         22
+       
+
+         5 Gumbo mix                           2           2         36         21
+       
+
+
+SQL> select * from products;
+
+      P_ID P_NAME                    SUPPLIER_ID CATEGORY_ID       UNIT    PRICE
+---------- ------------------------- ----------- ----------- ----------   ----------
+
+
+         1 chais                               1           1         10     18
+       
+
+         2 chang                               1           1         24     19
+   
+
+         3 aniseed syrup                       1           2         12     10
+       
+
+         4 Cajun seasoning                     2           2         48     22
+        
+
+         5 Gumbo mix                           2           2         36     21
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

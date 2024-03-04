@@ -1,0 +1,107 @@
+
+SQL> create table category(category_id int primary key,category_name varchar(25),description varchar(75));
+
+Table created.
+
+SQL> create  table product(pro_id int primary key,pro_name varchar(25),category_id int,foreign key(category_id)references category(category_id),price int);
+
+Table created.
+
+SQL> insert into category values(&category_id,'&category_name','&description');
+Enter value for category_id: 1
+Enter value for category_name: beverages
+Enter value for description: softdrinks,coffee,tea
+old   1: insert into category values(&category_id,'&category_name','&description')
+new   1: insert into category values(1,'beverages','softdrinks,coffee,tea')
+
+1 row created.
+
+SQL> /
+Enter value for category_id: 2
+Enter value for category_name: condiments
+Enter value for description: mayonnaise,chutney,currypowder
+old   1: insert into category values(&category_id,'&category_name','&description')
+new   1: insert into category values(2,'condiments','mayonnaise,chutney,currypowder')
+
+1 row created.
+
+SQL> /
+Enter value for category_id: 3
+Enter value for category_name: confections
+Enter value for description: candies,chocolates,icecream
+old   1: insert into category values(&category_id,'&category_name','&description')
+new   1: insert into category values(3,'confections','candies,chocolates,icecream')
+
+1 row created.
+
+SQL>  insert into product values(&pro_id,'&pro_name',&category_id,&price);
+Enter value for pro_id: 1
+Enter value for pro_name: chais
+Enter value for category_id: 1
+Enter value for price: 18
+old   1:  insert into product values(&pro_id,'&pro_name',&category_id,&price)
+new   1:  insert into product values(1,'chais',1,18)
+
+1 row created.
+
+SQL> /
+Enter value for pro_id: 2
+Enter value for pro_name: chang
+Enter value for category_id: 1
+Enter value for price: 19
+old   1:  insert into product values(&pro_id,'&pro_name',&category_id,&price)
+new   1:  insert into product values(2,'chang',1,19)
+
+1 row created.
+
+SQL> /
+Enter value for pro_id: 3
+Enter value for pro_name: aniseed syrup
+Enter value for category_id: 2
+Enter value for price: 10
+old   1:  insert into product values(&pro_id,'&pro_name',&category_id,&price)
+new   1:  insert into product values(3,'aniseed syrup',2,10)
+
+1 row created.
+
+SQL> select pro_id,pro_name,category_name from product natural join category;
+
+    PRO_ID PRO_NAME                  CATEGORY_NAME
+---------- ------------------------- -------------------------
+         2 chang                     beverages
+         1 chais                     beverages
+         3 aniseed syrup             condiments
+
+SQL> select pro_id,pro_name,category_name from product inner join category on product.category_id=category.category_id;
+
+    PRO_ID PRO_NAME                  CATEGORY_NAME
+---------- ------------------------- -------------------------
+         2 chang                     beverages
+         1 chais                     beverages
+         3 aniseed syrup             condiments
+
+SQL> select pro_id,pro_name,category_name from product natural left outer join category;
+
+    PRO_ID PRO_NAME                  CATEGORY_NAME
+---------- ------------------------- -------------------------
+         2 chang                     beverages
+         1 chais                     beverages
+         3 aniseed syrup             condiments
+
+SQL> select pro_id,pro_name,category_name from product natural right outer join category;
+
+    PRO_ID PRO_NAME                  CATEGORY_NAME
+---------- ------------------------- -------------------------
+         1 chais                     beverages
+         2 chang                     beverages
+         3 aniseed syrup             condiments
+                                     confections
+
+SQL> select pro_id,pro_name,category_name from product natural full outer join category;
+
+    PRO_ID PRO_NAME                  CATEGORY_NAME
+---------- ------------------------- -------------------------
+         2 chang                     beverages
+         1 chais                     beverages
+         3 aniseed syrup             condiments
+                                     confections
