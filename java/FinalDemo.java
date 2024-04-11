@@ -1,12 +1,12 @@
 //final  // cannot inherit final class
 class A
 {
-	final String x="Nishal"; //constant
+	final String x="Livya"; //constant
 	
 	// cannot override a final method 
 	final void display()
 	{
-		//x="Nafeesa"; 
+		//x="Megha"; 
 		System.out.println("Value of X : "+x);
 	}
 
